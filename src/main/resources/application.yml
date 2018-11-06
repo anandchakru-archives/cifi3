@@ -1,0 +1,24 @@
+# TRACE|DEBUG|INFO|WARN|ERROR
+logging:
+  level:
+    org.springframework: WARN
+    com.anandchakru.app: WARN
+    org.hibernate: WARN
+    root: WARN
+  file: cifi3.log
+spring: 
+  main: 
+    banner-mode: "off"
+  datasource: 
+    url: jdbc:mysql://localhost:3306/cifi3?useSSL=false&allowPublicKeyRetrieval=true
+    username: cifi3prod
+    password: cifi3prod
+  jpa: 
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+  data:
+    rest:
+      basePath: /repo
+cifi: 
+  name: Cifi3
