@@ -1,4 +1,7 @@
-#Sample Junit for RepositoryRestResource
+# Cifi3
+
+Wires up a client app with jenkins and github without exposing jenkins to github webhooks. 
+Manage/automate/customize your deployments based on specific CI/CD needs.
 
 ## Run
 
