@@ -21,7 +21,7 @@ public class AppNode implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long appNodeId;
 	@JoinColumn(name = "appId", insertable = true, updatable = true)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private App app;
 	private String name;
 	private String ip;
@@ -32,6 +32,8 @@ public class AppNode implements Serializable {
 	private String startScript;
 	@Column(name = "shutdown_script")
 	private String shutdownScript;
+	@Column(name = "heartbeat_url")
+	private String heartbeatUrl;
 
 	public Long getAppNodeId() {
 		return appNodeId;

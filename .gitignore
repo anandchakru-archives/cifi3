@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/memory
 
 # dependencies
 /node_modules
@@ -22,6 +23,8 @@ bin/
 .settings/
 *.sublime-workspace
 *.log
+*.tmp
+*.log*.gz
 
 
 # System Files

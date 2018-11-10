@@ -2,14 +2,15 @@
 logging:
   level:
     org.springframework: OFF
-    com.anandchakru.app: OFF
-    org.hibernate: DEBUG
+    com.anandchakru.app: DEBUG
+    org.hibernate.type: TRACE
+    org.hibernate: WARN
     root: OFF
-  file: cifi3.log
+  file: cifi3-local.log
 spring: 
   datasource: 
     url: jdbc:mysql://localhost:3306/cifi3?useSSL=false&allowPublicKeyRetrieval=true
     username: tester
     password: tester
-cifi: 
-  name: Cifi3
+  jpa:
+    show-sql: true

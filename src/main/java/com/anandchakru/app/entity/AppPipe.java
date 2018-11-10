@@ -38,7 +38,7 @@ public class AppPipe implements Serializable {
 	@Column(name = "sign_verify_token")
 	private String signVerifyToken;
 	@Column(name = "bot_build")
-	private String botBuild;
+	private Boolean botBuild;
 	@Column(name = "bot_build_regex")
 	private String botBuildRegex;
 	@Column(name = "bot_deploy")
@@ -100,10 +100,10 @@ public class AppPipe implements Serializable {
 	public void setSignVerifyToken(String signVerifyToken) {
 		this.signVerifyToken = signVerifyToken;
 	}
-	public String getBotBuild() {
+	public Boolean getBotBuild() {
 		return botBuild;
 	}
-	public void setBotBuild(String botBuild) {
+	public void setBotBuild(Boolean botBuild) {
 		this.botBuild = botBuild;
 	}
 	public String getBotBuildRegex() {

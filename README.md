@@ -9,6 +9,8 @@ Manage/automate/customize your deployments based on specific CI/CD needs.
 
 * `mvn spring-boot:run -Dspring.profiles.active=local -Dlogback-debug=true -Dport=8080`
 
+* If InspectIt for APM: `-javaagent:C:\Apps\inspectIT\agent\inspectit-agent.jar -Dinspectit.repository=localhost:9070 -Dinspectit.agent.name=Sample`
+
 ## Test
 
 * In eclipse, right-click on `com.anandchakru.app.repo.AppRestRepoTest` _Run As_ -> JUnit Test

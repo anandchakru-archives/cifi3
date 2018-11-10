@@ -1,5 +1,6 @@
 package com.anandchakru.app.config;
 
+import static com.anandchakru.app.model.constants.Beans.REST_TEMPLATE;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @EntityScan({ "com.anandchakru.app" })
 @ComponentScan({ "com.anandchakru.app" })
 public class Cifi3Config {
-	@Bean
+	@Bean(name = REST_TEMPLATE)
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}

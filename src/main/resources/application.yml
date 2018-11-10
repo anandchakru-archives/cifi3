@@ -7,6 +7,8 @@ logging:
     root: WARN
   file: cifi3.log
 spring: 
+  application: 
+    name: cifi3	
   main: 
     banner-mode: "off"
   datasource: 
@@ -20,5 +22,11 @@ spring:
   data:
     rest:
       basePath: /repo
+server:
+  port: ${port:9090}
 cifi: 
   name: Cifi3
+  faults:
+    UNXPTD_ERR: An Unexpected Error occurred.
+    INVLD_OPRTN: Invalid Operation.
+    INVLD_NODE_OR_APP: Invalid App or Node.
