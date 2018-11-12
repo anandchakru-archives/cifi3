@@ -22,10 +22,10 @@ import com.anandchakru.app.model.enums.HistoryStatus;
 public class AppHistory implements Serializable {
 	@Id
 	@Column(name = "app_history_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app_history")
 	private Long appHistoryId;
 	@JoinColumn(name = "appId", insertable = true, updatable = true)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private App app;
 	private String version;
 	private String tag;

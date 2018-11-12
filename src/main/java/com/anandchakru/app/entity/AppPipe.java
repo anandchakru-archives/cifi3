@@ -21,10 +21,10 @@ import com.anandchakru.app.model.enums.PipeAgent;
 public class AppPipe implements Serializable {
 	@Id
 	@Column(name = "app_pipe_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app_pipe")
 	private Long appPipeId;
 	@JoinColumn(name = "appId", insertable = true, updatable = true)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private App app;
 	@Enumerated(EnumType.STRING)
 	private PipeAgent status;

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class App implements Serializable {
 	@Id
 	@Column(name = "app_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app")
 	private Long appId;
 	@Column(name = "app_name")
 	private String appName;

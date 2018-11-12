@@ -21,10 +21,10 @@ import com.anandchakru.app.model.enums.ScmAgent;
 public class AppScm implements Serializable {
 	@Id
 	@Column(name = "app_scm_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app_scm")
 	private Long appScmId;
 	@JoinColumn(name = "appId", insertable = true, updatable = true)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private App app;
 	@Enumerated(EnumType.STRING)
 	private ScmAgent agent;

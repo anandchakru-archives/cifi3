@@ -18,10 +18,10 @@ import javax.persistence.Table;
 public class AppNode implements Serializable {
 	@Id
 	@Column(name = "app_node_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app_node")
 	private Long appNodeId;
 	@JoinColumn(name = "appId", insertable = true, updatable = true)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private App app;
 	private String name;
 	private String ip;
@@ -82,5 +82,11 @@ public class AppNode implements Serializable {
 	}
 	public void setShutdownScript(String shutdownScript) {
 		this.shutdownScript = shutdownScript;
+	}
+	public String getHeartbeatUrl() {
+		return heartbeatUrl;
+	}
+	public void setHeartbeatUrl(String heartbeatUrl) {
+		this.heartbeatUrl = heartbeatUrl;
 	}
 }

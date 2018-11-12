@@ -22,6 +22,12 @@ spring:
   data:
     rest:
       basePath: /repo
+      return-body-on-create: true
+      return-body-on-update: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      #https://stackoverflow.com/q/52656517/234110
 server:
   port: ${port:9090}
 cifi: 
