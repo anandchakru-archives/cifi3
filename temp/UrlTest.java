@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UrlTest {
 	public static void main(String[] args) throws Exception {
 		URL url = new URL(
-				"https://api.github.com/repos/anandchakru/jrvite/releases/assets/9453603?access_token=19b300f8638e1addb11c92417796feb61a26c4ba");
+				"https://api.github.com/repos/anandchakru/private_repo/releases/assets/asset_id?access_token=access_token_from_github_com_settings_tokens");
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		connection.setRequestProperty("Accept", "application/octet-stream");
 		ReadableByteChannel uChannel = Channels.newChannel(connection.getInputStream());
