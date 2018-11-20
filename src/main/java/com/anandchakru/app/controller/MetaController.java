@@ -1,6 +1,5 @@
 package com.anandchakru.app.controller;
 
-import static com.anandchakru.app.model.util.AppResponder.respond;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.anandchakru.app.model.rsp.AppResponse;
@@ -14,6 +13,6 @@ public class MetaController {
 	}
 	@GetMapping("/hbj")
 	public AppResponse hbJson() {
-		return respond(new HeartBeatRsp(System.currentTimeMillis(), "Heartbeat"));
+		return new AppResponse(new HeartBeatRsp(System.currentTimeMillis(), "Heartbeat"), null);
 	}
 }

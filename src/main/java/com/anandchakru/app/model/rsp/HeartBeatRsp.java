@@ -25,4 +25,8 @@ public class HeartBeatRsp implements Response {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	@Override
+	public String toString() {
+		return "HeartBeatRsp [time=" + time + ", content=" + content + "]";
+	}
 }

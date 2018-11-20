@@ -11,82 +11,42 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.Data;
+import lombok.ToString;
 
 @SuppressWarnings("serial")
+@Data
+@ToString
 @Entity
 @Table(name = "app_node")
 public class AppNode implements Serializable {
 	@Id
 	@Column(name = "app_node_id")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app_node")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long appNodeId;
 	@JoinColumn(name = "appId", insertable = true, updatable = true)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private App app;
-	private String name;
+	@Column(name = "node_name", length = 64)
+	private String nodeName;
+	@Column(name = "ip", length = 64)
 	private String ip;
+	@Column(name = "cluster", length = 64)
 	private String cluster;
-	@Column(name = "live_commit")
-	private String liveCommit;
-	@Column(name = "start_script")
-	private String startScript;
-	@Column(name = "shutdown_script")
+	@Column(name = "arti_file", length = 64)
+	private String artiFileName;
+	@Column(name = "fetch_script", length = 1024)
+	private String fetchScript;
+	@Column(name = "shutdown_script", length = 1024)
 	private String shutdownScript;
-	@Column(name = "heartbeat_url")
+	@Column(name = "start_script", length = 1024)
+	private String startScript;
+	@Column(name = "heartbeat_url", length = 1024)
 	private String heartbeatUrl;
-
-	public Long getAppNodeId() {
-		return appNodeId;
-	}
-	public void setAppNodeId(Long appNodeId) {
-		this.appNodeId = appNodeId;
-	}
-	public App getApp() {
-		return app;
-	}
-	public void setApp(App app) {
-		this.app = app;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getIp() {
-		return ip;
-	}
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-	public String getCluster() {
-		return cluster;
-	}
-	public void setCluster(String cluster) {
-		this.cluster = cluster;
-	}
-	public String getLiveCommit() {
-		return liveCommit;
-	}
-	public void setLiveCommit(String liveCommit) {
-		this.liveCommit = liveCommit;
-	}
-	public String getStartScript() {
-		return startScript;
-	}
-	public void setStartScript(String startScript) {
-		this.startScript = startScript;
-	}
-	public String getShutdownScript() {
-		return shutdownScript;
-	}
-	public void setShutdownScript(String shutdownScript) {
-		this.shutdownScript = shutdownScript;
-	}
-	public String getHeartbeatUrl() {
-		return heartbeatUrl;
-	}
-	public void setHeartbeatUrl(String heartbeatUrl) {
-		this.heartbeatUrl = heartbeatUrl;
-	}
+	@Column(name = "stage_dir", length = 1024)
+	private String stageDir;
+	@Column(name = "self_url", length = 128)
+	private String selfUrl;
+	@Column(name = "spring_profiles", length = 512)
+	private String springProfiles;
 }

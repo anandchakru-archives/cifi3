@@ -1,8 +1,8 @@
 package com.anandchakru.app.model.constants;
 
-public class Beans {
+public class Bean {
 	public static final String REST_TEMPLATE = "restTemplate";
 
-	private Beans() {
+	private Bean() {
 	}
 }

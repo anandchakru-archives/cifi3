@@ -14,68 +14,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.anandchakru.app.model.enums.ScmAgent;
+import lombok.Data;
+import lombok.ToString;
 
 @SuppressWarnings("serial")
 @Entity
+@Data
+@ToString
 @Table(name = "app_scm")
 public class AppScm implements Serializable {
 	@Id
 	@Column(name = "app_scm_id")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app_scm")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long appScmId;
 	@JoinColumn(name = "appId", insertable = true, updatable = true)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private App app;
 	@Enumerated(EnumType.STRING)
+	@Column(name = "agent", length = 64)
 	private ScmAgent agent;
+	@Column(name = "url", length = 1024)
 	private String url;
-	@Column(name = "api_url")
+	@Column(name = "api_url", length = 1024)
 	private String apiUrl;
-	@Column(name = "api_token")
+	@Column(name = "api_token", length = 512)
 	private String apiToken;
-	@Column(name = "sign_verify_token")
+	@Column(name = "sign_verify_token", length = 2048)
 	private String signVerifyToken;
-
-	public Long getAppScmId() {
-		return appScmId;
-	}
-	public void setAppScmId(Long appScmId) {
-		this.appScmId = appScmId;
-	}
-	public App getApp() {
-		return app;
-	}
-	public void setApp(App app) {
-		this.app = app;
-	}
-	public ScmAgent getAgent() {
-		return agent;
-	}
-	public void setAgent(ScmAgent agent) {
-		this.agent = agent;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public String getApiUrl() {
-		return apiUrl;
-	}
-	public void setApiUrl(String apiUrl) {
-		this.apiUrl = apiUrl;
-	}
-	public String getApiToken() {
-		return apiToken;
-	}
-	public void setApiToken(String apiToken) {
-		this.apiToken = apiToken;
-	}
-	public String getSignVerifyToken() {
-		return signVerifyToken;
-	}
-	public void setSignVerifyToken(String signVerifyToken) {
-		this.signVerifyToken = signVerifyToken;
-	}
+	@Column(name = "sign_verify_header", length = 128)
+	private String signVerifyHeader;
+	@Column(name = "event_header", length = 128)
+	private String eventHeader;
+	@Column(name = "scm_app_id", length = 32)
+	private String scmAppId;
 }

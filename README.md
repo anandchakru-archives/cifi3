@@ -16,3 +16,13 @@ Manage/automate/customize your deployments based on specific CI/CD needs.
 * In eclipse, right-click on `com.anandchakru.app.repo.AppRestRepoTest` _Run As_ -> JUnit Test
 
 * Optional: _Run Configurations_ -> _Arguements_ -> Add `-Dspring.profiles.active=test` under _VM arguements_ -> Run
+
+* To generate report: mvn clean surefire-report:report site -DgenerateReports=false
+
+## Usage
+
+* `java -jar cifi.jar --cifi.hostname=<hostname> --spring.profiles.active=prod,master`
+* `java -jar cifi.jar --cifi.hostname=<hostname> --spring.profiles.active=prod,slave --cifi.master.server=192.168.1.18 --cifi.master.port=8080 --cifi.master.protocol=http`
+
+## Refs:
+ 1. https://docs.spring.io/spring-data/rest/docs/current/reference/html/

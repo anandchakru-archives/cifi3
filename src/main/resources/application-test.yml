@@ -1,7 +1,8 @@
 logging:
   level:
-    org.hibernate.type: TRACE
-    org.hibernate: WARN
+    org.hibernate.type: OFF
+    org.hibernate: OFF
+    root: OFF
   file: cifi3-test.log
 spring: 
   datasource: 
@@ -10,7 +11,7 @@ spring:
     password: sa
     driverClassName: org.h2.Driver
   jpa: 
-    show-sql: true
+    show-sql: false
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create

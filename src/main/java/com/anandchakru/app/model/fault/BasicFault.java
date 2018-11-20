@@ -1,20 +1,21 @@
 package com.anandchakru.app.model.fault;
 
+import static com.anandchakru.app.model.constants.Cifi3.NO_DESCRIPTION;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@ToString
+@NoArgsConstructor
+@EqualsAndHashCode
 @SuppressWarnings("serial")
 public class BasicFault implements Fault {
-	private String description;
+	private String message;
 
-	public BasicFault() {
+	public BasicFault(String message) {
 		super();
-	}
-	public BasicFault(String description) {
-		super();
-		this.description = description;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
+		this.message = message == null ? NO_DESCRIPTION : message;
 	}
 }

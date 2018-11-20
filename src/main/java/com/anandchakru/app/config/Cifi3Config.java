@@ -1,6 +1,6 @@
 package com.anandchakru.app.config;
 
-import static com.anandchakru.app.model.constants.Beans.REST_TEMPLATE;
+import static com.anandchakru.app.model.constants.Bean.REST_TEMPLATE;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

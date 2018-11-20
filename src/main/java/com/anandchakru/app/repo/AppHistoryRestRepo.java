@@ -1,29 +1,13 @@
 package com.anandchakru.app.repo;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import com.anandchakru.app.entity.AppHistory;
 
 @RepositoryRestResource(path = "app-history")
 public interface AppHistoryRestRepo extends PagingAndSortingRepository<AppHistory, Long> {
-	/*
-	public AppHistory findByCommitId(String commitId);
-	public AppHistory findByCommitIdAndApp_AppId(String commitId, Long appId);
-	//
-	@RestResource(path = "byAppName", rel = "byAppName") //eg:	http://localhost:8078/repo/history/search/byAppName?name=jrvite
-	List<AppHistory> findByApp_AppNameOrderByTimeDesc(@Param("name") String appName);
-	@RestResource(path = "byAppId", rel = "byAppId") //eg:	http://localhost:8078/repo/history/search/byAppId?id=1
-	List<AppHistory> findByApp_AppId(@Param("id") Long appId);
-	//
-	@Modifying
-	@Transactional
-	@RestResource(exported = false)
-	@Query("update AppHistory a set a.status=?2 where a.commitId = ?1")
-	public void setFixedStatusFor(String commitId, HistoryStatus status);
-	@Modifying
-	@Transactional
-	@RestResource(exported = false)
-	@Query("update AppHistory a set a.assetId=?2, a.assetUrl=?3, a.status=?4, a.tag=?5, a.version=?6 where a.appHistoryId = ?1")
-	public void setFixedAssetStatusTagVersionFor(Long appHistoryId, String assetId, String assetUrl,
-	HistoryStatus status, String tag, String version);
-	*/}
+	@RestResource(path = "appIdAndCommitId", rel = "appIdAndCommitId") //	http://localhost:8078/repo/app-node/search/appIdAndCommitId?appId=1&commitId=c03ea15fbbbd7b886e744cf712b6e73434843570
+	public AppHistory findByApp_AppIdAndCommitId(@Param("appId") Long appId, @Param("commitId") String commitId);
+}

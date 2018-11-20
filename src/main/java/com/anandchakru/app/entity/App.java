@@ -1,5 +1,6 @@
 package com.anandchakru.app.entity;
 
+import static com.anandchakru.app.model.constants.Field.APP_NAME_MAX_LEN;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,28 +8,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Data;
+import lombok.ToString;
 
 @SuppressWarnings("serial")
+@Data
+@ToString
 @Entity
 @Table(name = "app")
 public class App implements Serializable {
 	@Id
 	@Column(name = "app_id")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hs_app")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long appId;
-	@Column(name = "app_name")
+	@Column(name = "app_name", length = APP_NAME_MAX_LEN)
 	private String appName;
 
-	public Long getAppId() {
-		return appId;
+	public App() {
+		super();
 	}
-	public void setAppId(Long appId) {
+	public App(String appName) {
+		super();
+		this.appName = appName;
+	}
+	public App(Long appId, String appName) {
+		super();
 		this.appId = appId;
-	}
-	public String getAppName() {
-		return appName;
-	}
-	public void setAppName(String appName) {
 		this.appName = appName;
 	}
 }

@@ -19,6 +19,8 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+      id:
+        new_generator_mappings: false
   data:
     rest:
       basePath: /repo
@@ -28,11 +30,31 @@ spring:
     serialization:
       fail-on-empty-beans: false
       #https://stackoverflow.com/q/52656517/234110
+    default-property-inclusion: NON_NULL
 server:
   port: ${port:9090}
 cifi: 
-  name: Cifi3
+  appname: cifi3
   faults:
     UNXPTD_ERR: An Unexpected Error occurred.
     INVLD_OPRTN: Invalid Operation.
     INVLD_NODE_OR_APP: Invalid App or Node.
+    INVLD_APP_NAME: appName should be between 1 and 64 characters in length.
+    INVLD_APP_NODE_NAME: appNodeName should be between 1 and 64 characters in length.
+    INVALID_SCM_APP_ID: Invalid Scm Id.
+    INVALID_PIPE_APP_ID: Invalid Pipe Id.
+    INVALID_WEBHOOK_SIGN: Invalid Webhook Signature.
+    INVALID_JSON: Invalid JSON.
+    INVALID_SCM_REF: Invalid Ref in webhook.
+    PIPE_CRUMB_FAIL: Build request failed while fetching crumb.
+    PIPE_BUILD_FAIL: Build request failed while requesting.
+    INVALID_APP_HISTORY: Invalid History.
+    INVALID_APP_FOR_HISTORY: Invalid App for History.
+    INVALID_APP_FOR_SCM: Invalid App for given Scm.
+    INVALID_APP_PIPE_FOR_SCM: Invalid Pipe for given Scm.
+    INVALID_APP_FOR_PIPE: Invalid App for given Pipe.
+    IO_WHILE_EXECUTE: IOException while executing script.
+    INVALID_APP_NODE_FOR_HISTORY: Invalid App Node for History.
+    INVALID_APP_SCM_FOR_HISTORY: Invalid App Scm for History.
+    SHUTDOWN_SCRIPT_EMPTY: Shutdown Script Empty.
+    START_SCRPT_EMPTY: Start Script Empty.

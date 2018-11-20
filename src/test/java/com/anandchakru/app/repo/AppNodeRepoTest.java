@@ -1,7 +1,11 @@
 package com.anandchakru.app.repo;
 
-import static com.anandchakru.app.repo.TestUtil.createNewApp;
-import static com.anandchakru.app.repo.TestUtil.createNewAppNode;
+import static com.anandchakru.app.model.constants.Cifi3.JSON_HAL;
+import static com.anandchakru.app.model.util.SampleDataUtil.APP_NAME;
+import static com.anandchakru.app.model.util.SampleDataUtil.APP_NODE_NAME;
+import static com.anandchakru.app.test.util.TestUtil.addApp;
+import static com.anandchakru.app.test.util.TestUtil.addAppNode;
+import static com.anandchakru.app.test.util.TestUtil.setupTestProfile;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,14 +13,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import java.nio.charset.Charset;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -39,19 +42,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Import({ Cifi3Config.class })
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) //Clear DB after every method
 public class AppNodeRepoTest {
-	private final MediaType JSON_HAL = new MediaType("application", "hal+json", Charset.forName("UTF-8"));
-	private final String APP_NAME = "app1";
-	private final String APP_NODE_NAME = "node1";
 	@Autowired
 	private MockMvc mockMvc;
 
+	@BeforeClass
+	public static void profile() {
+		setupTestProfile();
+	}
 	@Test
 	public void testSave() throws JsonProcessingException, Exception {
-		String app = createNewApp(mockMvc, APP_NAME); //app= http://localhost/repo/app/1
-		String appNode = createNewAppNode(mockMvc, app, APP_NODE_NAME); //appNode=http://localhost/repo/app-node/1
+		String appNode = addAppNode(mockMvc, addApp(mockMvc));//addApp= http://localhost/repo/app/1 && addAppNode=http://localhost/repo/app-node/1
 		String appNodeApp = appNode + "/app"; //appNodeApp=http://localhost/repo/app-node/1/app
-		mockMvc.perform(get(appNode)).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().contentType(JSON_HAL)).andExpect(jsonPath("$.name", is(APP_NODE_NAME)))
+		mockMvc.perform(get(appNode)).andDo(print()).andExpect(status().isOk()).andDo(print())
+				.andExpect(content().contentType(JSON_HAL)).andExpect(jsonPath("$.nodeName", is(APP_NODE_NAME)))
 				.andExpect(jsonPath("$._links.app", hasEntry("href", appNodeApp)));
 		mockMvc.perform(get(appNodeApp)).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(JSON_HAL)).andExpect(jsonPath("$.appName", is(APP_NAME)));
