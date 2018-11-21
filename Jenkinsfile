@@ -9,7 +9,7 @@ pipeline {
         jdk 'java8172'
     }
     environment{
-    	ARTIVER = "v1.${BUILD_NUMBER}"
+    	ARTIVER = "1.${BUILD_NUMBER}"
     }
     stages {
     	stage('init') {
@@ -47,7 +47,7 @@ pipeline {
 					def rsp = new JsonSlurperClassic().parseText(response)
 
 					//Upload jar
-					uploadCmd = 'curl -H "Authorization: token ${GITHUB_OAUTH_TOKEN}" -H "Content-Type: application/zip" -T target/cifi3-1.0.0.jar -X POST https://uploads.github.com/repos/anandchakru/cifi3/releases/' + rsp.id + '/assets?name=cifi3-1.0.0.jar'
+					uploadCmd = 'curl -H "Authorization: token ${GITHUB_OAUTH_TOKEN}" -H "Content-Type: application/zip" -T target/cifi3-${ARTIVER}.jar -X POST https://uploads.github.com/repos/anandchakru/cifi3/releases/' + rsp.id + '/assets?name=cifi3-${ARTIVER}.jar'
 					response2 = sh (
 					  script: uploadCmd,
 					  returnStdout: true
