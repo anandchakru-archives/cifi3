@@ -8,10 +8,6 @@ pipeline {
         maven 'maven353'
         jdk 'java8172'
     }
-    environment {
-    	/*Set @ http://192.168.1.7:8080/configure -> Global properties -> Environment variables -> Add*/
-    	GITHUB_OAUTH_TOKEN = credentials('GITHUB_OAUTH_TOKEN')
-    }
     stages {
     	stage('init') {
     		steps{
@@ -39,6 +35,7 @@ pipeline {
 				echo 'Releasing..'
 				script {
 					// Create New Release
+					// Set @ http://192.168.1.7:8080/configure -> Global properties -> Environment variables -> Add -> GITHUB_OAUTH_TOKEN
 					response = sh (
 					  script: 'curl -H "Content-Type: application/json" -X POST -d \'{ "tag_name": "\'"v1.0.${BUILD_NUMBER}"\'", "target_commitish": "master", "name": "\'"v1.0.${BUILD_NUMBER}"\'", "body": "Jenkins: \'"${BUILD_NUMBER}"\'", "draft": false, "prerelease": false }\' https://api.github.com/repos/anandchakru/cifi3/releases?access_token=${GITHUB_OAUTH_TOKEN}',
 					  returnStdout: true
