@@ -1,0 +1,30 @@
+# Value for $GITHUB_OAUTH_TOKEN is generated from https://github.com/settings/tokens
+# and added to travis https://travis-ci.com/anandchakru/cifi3/settings
+
+language: java
+script:
+- mvn package -Dmaven.javadoc.skip=true -B -V
+- mvn surefire-report:report site -DgenerateReports=false
+cache:
+  directories:
+    - $HOME/.m2
+branches:
+  except:
+  - test
+  - master
+notifications:
+  email:
+    on_failure: change
+    on_success: change
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file_glob: true
+  file: 
+    - /home/travis/build/anandchakru/cifi3/target/cifi3-*.jar
+    - /home/travis/build/anandchakru/cifi3/target/site/**
+  on:
+    repo: anandchakru/cifi3
+    branch: master
+    tags: true
+  skip_cleanup: true

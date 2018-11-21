@@ -8,6 +8,10 @@ pipeline {
         maven 'maven353'
         jdk 'java8172'
     }
+    environment {
+    	/*Set @ http://192.168.1.7:8080/configure -> Global properties -> Environment variables -> Add*/
+    	GITHUB_OAUTH_TOKEN = credentials('GITHUB_OAUTH_TOKEN')
+    }
     stages {
     	stage('init') {
     		steps{
@@ -36,13 +40,13 @@ pipeline {
 				script {
 					// Create New Release
 					response = sh (
-					  script: 'curl -H "Content-Type: application/json" -X POST -d \'{ "tag_name": "\'"v1.0.${BUILD_NUMBER}"\'", "target_commitish": "master", "name": "\'"v1.0.${BUILD_NUMBER}"\'", "body": "Jenkins: \'"${BUILD_NUMBER}"\'", "draft": false, "prerelease": false }\' https://api.github.com/repos/anandchakru/cifi3/releases?access_token=fc978ff1ea0f608e8d4abb2cb0f87242e3e8dcca',
+					  script: 'curl -H "Content-Type: application/json" -X POST -d \'{ "tag_name": "\'"v1.0.${BUILD_NUMBER}"\'", "target_commitish": "master", "name": "\'"v1.0.${BUILD_NUMBER}"\'", "body": "Jenkins: \'"${BUILD_NUMBER}"\'", "draft": false, "prerelease": false }\' https://api.github.com/repos/anandchakru/cifi3/releases?access_token=${GITHUB_OAUTH_TOKEN}',
 					  returnStdout: true
 					).trim()
 					def rsp = new JsonSlurperClassic().parseText(response)
 
 					//Upload jar
-					uploadCmd = 'curl -H "Authorization: token fc978ff1ea0f608e8d4abb2cb0f87242e3e8dcca" -H "Content-Type: application/zip" -T target/cifi3-1.0.0.jar -X POST https://uploads.github.com/repos/anandchakru/cifi3/releases/' + rsp.id + '/assets?name=cifi3-1.0.0.jar'
+					uploadCmd = 'curl -H "Authorization: token ${GITHUB_OAUTH_TOKEN}" -H "Content-Type: application/zip" -T target/cifi3-1.0.0.jar -X POST https://uploads.github.com/repos/anandchakru/cifi3/releases/' + rsp.id + '/assets?name=cifi3-1.0.0.jar'
 					response2 = sh (
 					  script: uploadCmd,
 					  returnStdout: true

@@ -90,12 +90,12 @@ public class SampleDataUtil {
 		AppScm appScm = new AppScm();
 		appScm.setAgent(ScmAgent.GITHUB);
 		appScm.setApiToken(SCM_TOKEN);
-		appScm.setApiUrl("https://api.github.com/repos/anandchakru/fr/");
-		appScm.setScmAppId("89962281");
+		appScm.setApiUrl("https://api.github.com/repos/anandchakru/cifi3/");
+		appScm.setScmAppId("156303659");
 		appScm.setSignVerifyToken(NO_SIGN);
 		appScm.setSignVerifyHeader("X-Hub-Signature");
 		appScm.setEventHeader("X-GitHub-Event");
-		appScm.setUrl("https://github.com/anandchakru/fr");
+		appScm.setUrl("https://github.com/anandchakru/cifi3");
 		return appScm;
 	}
 	public static AppPipe makeAppPipe() {
