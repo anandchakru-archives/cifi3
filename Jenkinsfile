@@ -8,13 +8,17 @@ pipeline {
         maven 'maven353'
         jdk 'java8172'
     }
+    environment{
+    	ARTIVER = "v1.${BUILD_NUMBER}"
+    }
     stages {
     	stage('init') {
     		steps{
     			sh '''
-    				echo "PATH = ${PATH}"
-    				echo "M2_HOME = ${M2_HOME}"
-    				echo $BUILD_NUMBER
+    				echo "PATH				: ${PATH}"
+    				echo "M2_HOME 			: ${M2_HOME}"
+    				echo "Build Number		: $BUILD_NUMBER"
+    				echo "Artifact Version	: ${ARTIVER}"
     			'''
     		}
     	}
@@ -27,7 +31,7 @@ pipeline {
         stage('build') {
         	steps{
 	            echo 'Building..'
-	            sh 'mvn package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+	            sh 'mvn package -Dcifi.version=${ARTIVER} -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
             }
         }
         stage('tag') {
@@ -37,7 +41,7 @@ pipeline {
 					// Create New Release
 					// Set @ http://192.168.1.7:8080/configure -> Global properties -> Environment variables -> Add -> GITHUB_OAUTH_TOKEN
 					response = sh (
-					  script: 'curl -H "Content-Type: application/json" -X POST -d \'{ "tag_name": "\'"v1.0.${BUILD_NUMBER}"\'", "target_commitish": "master", "name": "\'"v1.0.${BUILD_NUMBER}"\'", "body": "Jenkins: \'"${BUILD_NUMBER}"\'", "draft": false, "prerelease": false }\' https://api.github.com/repos/anandchakru/cifi3/releases?access_token=${GITHUB_OAUTH_TOKEN}',
+					  script: 'curl -H "Content-Type: application/json" -X POST -d \'{ "tag_name": "\'"${ARTIVER}"\'", "target_commitish": "master", "name": "\'"${ARTIVER}"\'", "body": "Jenkins: \'"${ARTIVER}"\'", "draft": false, "prerelease": false }\' https://api.github.com/repos/anandchakru/cifi3/releases?access_token=${GITHUB_OAUTH_TOKEN}',
 					  returnStdout: true
 					).trim()
 					def rsp = new JsonSlurperClassic().parseText(response)
@@ -55,7 +59,7 @@ pipeline {
 						script: 'git log -n 1 --pretty=format:%H',
 						returnStdout: true
 					)
-					def payld = $/ '{"assetId":"${rsp2.id}", "assetUrl":"${rsp2.browser_download_url}","commitId":"${commitId}", "status":"BUILT", "version":"${rsp.id}", "tag":"v1.0.${BUILD_NUMBER}","appId":"1"}' /$
+					def payld = $/ '{"assetId":"${rsp2.id}", "assetUrl":"${rsp2.browser_download_url}","commitId":"${commitId}", "status":"BUILT", "version":"${rsp.id}", "tag":"${ARTIVER}","appId":"1"}' /$
 					def signature = sh (
 						script: 'echo -n '+payld+' | openssl dgst -sha1 -hmac "haPR6C6ltR1ziwritrofuSpo79QI323o8e2Hebltl4l8evlpHisPuf3soNlJlF9Y" | sed "s/(stdin)= /sha1=/" ',
 						returnStdout: true
