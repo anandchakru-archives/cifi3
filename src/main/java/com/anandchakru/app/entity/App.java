@@ -2,12 +2,17 @@ package com.anandchakru.app.entity;
 
 import static com.anandchakru.app.model.constants.Field.APP_NAME_MAX_LEN;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.ToString;
 
@@ -23,6 +28,14 @@ public class App implements Serializable {
 	private Long appId;
 	@Column(name = "app_name", length = APP_NAME_MAX_LEN)
 	private String appName;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
+	private List<AppNode> nodes = Lists.newArrayList();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
+	private List<AppPipe> pipes = Lists.newArrayList();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
+	private List<AppHistory> history = Lists.newArrayList();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
+	private List<AppScm> scm = Lists.newArrayList();
 
 	public App() {
 		super();

@@ -34,7 +34,6 @@ spring:
 server:
   port: ${port:9090}
 cifi: 
-  appname: cifi3
   faults:
     UNXPTD_ERR: An Unexpected Error occurred.
     INVLD_OPRTN: Invalid Operation.
