@@ -17,6 +17,8 @@ import static com.anandchakru.app.model.util.SampleDataUtil.makeAppScm;
 import static com.anandchakru.app.model.util.SampleDataUtil.makeJsonEntity;
 import static com.anandchakru.app.model.util.SampleDataUtil.makeTextUriEntity;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -24,13 +26,18 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import com.anandchakru.app.entity.AppNode;
+import com.anandchakru.app.model.prop.CifiSettings;
 
 @Profile({ LOCAL })
 @Order(1)
 @Service
 public class PostInitRunnerForLocalDB implements CommandLineRunner {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	private CifiSettings settings;
 	@Autowired
 	private JdbcTemplate jdbc;
 	@Autowired
@@ -45,8 +52,10 @@ public class PostInitRunnerForLocalDB implements CommandLineRunner {
 			addAppNode(appURI);
 			addAppScm(appURI);
 			addAppPipe(appURI);
+		} catch (HttpServerErrorException e) {
+			logger.warn("ResponseBody:" + e.getResponseBodyAsString() + "~EOF~", e);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage(), e);
 		}
 	}
 	private void cleanDB() {
@@ -57,8 +66,8 @@ public class PostInitRunnerForLocalDB implements CommandLineRunner {
 		jdbc.execute("delete from app;");
 	}
 	public String addApp() {
-		return getUri(
-				rest.exchange(LOCAL_BASE + APP_REPO_URI, HttpMethod.POST, makeJsonEntity(makeApp()), Object.class));
+		return getUri(rest.exchange(LOCAL_BASE + APP_REPO_URI, HttpMethod.POST,
+				makeJsonEntity(makeApp(settings.getAppname())), Object.class));
 	}
 	public String addAppHistory(String appURI) {
 		return linkAppChildToApp(getUri(rest.exchange(LOCAL_BASE + APP_HISTORY_REPO_URI, HttpMethod.POST,

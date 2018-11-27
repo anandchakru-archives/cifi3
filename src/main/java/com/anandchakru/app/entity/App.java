@@ -28,12 +28,16 @@ public class App implements Serializable {
 	private Long appId;
 	@Column(name = "app_name", length = APP_NAME_MAX_LEN)
 	private String appName;
+	@ToString.Exclude
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
 	private List<AppNode> nodes = Lists.newArrayList();
+	@ToString.Exclude
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
 	private List<AppPipe> pipes = Lists.newArrayList();
+	@ToString.Exclude
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
 	private List<AppHistory> history = Lists.newArrayList();
+	@ToString.Exclude
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "app", cascade = CascadeType.REFRESH)
 	private List<AppScm> scm = Lists.newArrayList();
 

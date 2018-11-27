@@ -51,8 +51,8 @@ public class SampleDataUtil {
 		headers.set("Content-Type", TEXT_URI_LIST);
 		return new HttpEntity<T>(payload, headers);
 	}
-	public static App makeApp() {
-		return new App(APP_NAME);
+	public static App makeApp(String appName) {
+		return new App(appName == null ? APP_NAME : appName);
 	}
 	public static AppHistory makeAppHistory() {
 		AppHistory appHistory = new AppHistory();

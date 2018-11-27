@@ -63,7 +63,7 @@ public class TestUtil {
 	public static String addApp(final MockMvc mockMvc) throws JsonProcessingException, Exception {
 		return mockMvc
 				.perform(post(APP_REPO_URI).header(ACCEPT, APPLICATION_JSON).header(CONTENT_TYPE, APPLICATION_JSON)
-						.content(json.writeValueAsString(makeApp())))
+						.content(json.writeValueAsString(makeApp(null))))
 				.andDo(print()).andExpect(status().isCreated()).andReturn().getResponse().getHeader(LOCATION);
 	}
 	public static String addAppHistory(final MockMvc mockMvc, String appURI) throws JsonProcessingException, Exception {

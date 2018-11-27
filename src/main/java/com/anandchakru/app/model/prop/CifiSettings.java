@@ -11,7 +11,17 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @ConfigurationProperties(prefix = "cifi", ignoreUnknownFields = true)
 public class CifiSettings implements Serializable {
-	private String selfurl; //eg: http://localhost:9090/
+	/**
+	 * Url where cifi is exposed to clients.
+	 * <br/>
+	 * eg: http://localhost:9090/
+	 */
+	private String selfurl;
+	/**
+	 * Name of the application being cifi'd
+	 * <br/>
+	 * eg: myawesomeapp
+	 */
 	private String appname;
 	private Map<String, String> faults;
 }
