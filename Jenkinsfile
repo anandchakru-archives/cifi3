@@ -25,7 +25,7 @@ pipeline {
         stage('test') {
         	steps{
 	            echo 'Testing..'
-	            sh 'mvn clean surefire-report:report site -DgenerateReports=false'
+	            //sh 'mvn clean surefire-report:report site -DgenerateReports=false'
             }
         }
         stage('build') {
