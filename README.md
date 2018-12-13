@@ -1,5 +1,7 @@
 # Cifi3
 
+**NOte:** Frozen - reference only
+
 Wires up a client app with jenkins and github without exposing jenkins to github webhooks. 
 Manage/automate/customize your deployments based on specific CI/CD needs.
 
